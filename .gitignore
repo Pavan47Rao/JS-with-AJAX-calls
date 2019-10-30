@@ -1,0 +1,6 @@
+**/npm-cache
+/node_modules
+.idea/
+.vscode/
+dist/docs/
+/dist
