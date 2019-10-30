@@ -14,10 +14,6 @@ table, th, td {
     text-align: center;
 }
 
-.submit:hover {
-    cursor: pointer;
-}
-
 .submit {
     padding-top: 2%;
     font-weight: bolder;
@@ -39,6 +35,7 @@ table, th, td {
 
 .button {
     font-size: xx-large;
+    cursor: pointer;
 }
 
 .text-input {

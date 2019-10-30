@@ -7,12 +7,11 @@ let xhrFn = (resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", url);
     xhr.onload = () => { 
-      resolve(xhr.responseText);
+      xhr.responseText;
     };
     xhr.onerror = () => {
       reject(xhr.statusText)
     };
-    xhr.send();
   }
 let promise = new Promise(xhrFn);
 
