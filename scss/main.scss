@@ -1,10 +1,47 @@
 table {
-    width: 1000%;
+    width: 100%;
     font: 17px Calibri;
 }
+
+body {
+    background-color: burlywood;
+}
+
 table, th, td {
     border: solid 1px #DDD;
     border-collapse: collapse;
     padding: 2px 3px;
     text-align: center;
+}
+
+.submit:hover {
+    cursor: pointer;
+}
+
+.submit {
+    padding-top: 2%;
+    font-weight: bolder;
+}
+
+.form {
+    margin-top: 5%;
+    text-align: center;
+    margin-left: 5%;
+}
+
+.stock-label {
+    font-weight: bold;
+}
+
+.stack-table {
+    margin: 8px;
+}
+
+.button {
+    font-size: xx-large;
+}
+
+.text-input {
+    width: 180px;
+    margin-left: 9px;
 }
