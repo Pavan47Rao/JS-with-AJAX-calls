@@ -16,9 +16,11 @@ let xhrFn = (resolve, reject) => {
   }
 let promise = new Promise(xhrFn);
 
-let count = 0;
+
 let stackRow;
 let filterText = data => {
+    let count = 0;
+    let arrayOfIndices = new Array();
     let inputText = document.getElementById('stock-type').value;
     if(inputText) {
         inputText = inputText.toUpperCase();
@@ -26,14 +28,17 @@ let filterText = data => {
           let inputArray = inputText.split(',');
           console.log(inputArray);
           inputArray.forEach(element => {
-            if(data[0].symbol == inputText) {
+            if(data[0].symbol == element) {
               count++;
+              arrayOfIndices.push(0);
             }
-            else if(data[1].symbol == inputText) {
+            else if(data[1].symbol == element) {
               count++;
+              arrayOfIndices.push(1);
             }
-            else if(data[2].symbol == inputText) {
+            else if(data[2].symbol == element) {
               count++;
+              arrayOfIndices.push(2);
             }
           });
         }
@@ -54,13 +59,20 @@ let filterText = data => {
             console.log("not found");
           }
         }
-          
+        
         if(count>0){
+          let existingTable = document.getElementById('empTable');
+          if(existingTable) {
+            existingTable.remove();
+          }
           createTable();
           if(count>1){
-            for (let index = 0; index < count; index++) {
-              createRow(data[index]);        
-            }
+            arrayOfIndices.forEach(element => {
+              createRow(data[element]);
+            });
+            // for (let index = 0; index < count; index++) {
+            //   createRow(data[index]);        
+            // }
           }
           if(count==1) {
             createRow(stackRow);
@@ -95,12 +107,10 @@ function createTable() {
 function createRow(stackRow) {
     let empTab = document.getElementById('empTable');
     let rowCnt = empTab.rows.length;        // GET TABLE ROW COUNT.
-    console.log(rowCnt);
     let tr = empTab.insertRow(rowCnt);      // TABLE ROW.
     tr = empTab.insertRow(rowCnt);
     for (var c = 0; c < arrHead.length; c++) {
       let td = document.createElement('td');          // TABLE DEFINITION.
-      console.log(c);
       td = tr.insertCell(c);
       let ele = document.createElement('div');
       ele.innerHTML = stackRow[titles[c]];
