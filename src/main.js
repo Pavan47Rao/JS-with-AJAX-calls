@@ -30,6 +30,7 @@ let filterText = data => {
     if(inputText) {
       sample = inputText;
         inputText = inputText.toUpperCase().trim();
+        //comma separted stock symbols as input
         if(inputText.includes(',')) {
           let inputArray = inputText.split(',');
           inputArray.forEach(element => {
@@ -53,6 +54,7 @@ let filterText = data => {
             }
           });
         }
+        //single stock symbol input
         else {
           if(data[0].symbol == inputText) {
             count++;
@@ -126,8 +128,11 @@ function createRow(stackRow) {
 
 let nextNode = document.getElementById('submit');
 const event$ = fromEvent(nextNode, 'click'); 
+//Event listening through subscription
 let subscription = event$.subscribe(function (x) {
+    //fetch api to make ajax call
     fetch(url)
+    //handle reponse using promise then patterm
     .then(response => response.json())
     .then(resp =>
       filterText(resp.data)
