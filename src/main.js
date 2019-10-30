@@ -22,23 +22,34 @@ let filterText = data => {
     let count = 0;
     let arrayOfIndices = new Array();
     let inputText = document.getElementById('stock-type').value;
+    let sample;
+    let existingTable = document.getElementById('empTable');
+    if(existingTable) {
+      existingTable.remove();
+    }
     if(inputText) {
-        inputText = inputText.toUpperCase();
+      sample = inputText;
+        inputText = inputText.toUpperCase().trim();
         if(inputText.includes(',')) {
           let inputArray = inputText.split(',');
-          console.log(inputArray);
           inputArray.forEach(element => {
-            if(data[0].symbol == element) {
+            if(data[0].symbol == element.trim()) {
               count++;
               arrayOfIndices.push(0);
+              stackRow = data[0];
             }
-            else if(data[1].symbol == element) {
+            else if(data[1].symbol == element.trim()) {
               count++;
               arrayOfIndices.push(1);
+              stackRow =data[1];
             }
-            else if(data[2].symbol == element) {
+            else if(data[2].symbol == element.trim()) {
               count++;
               arrayOfIndices.push(2);
+              stackRow =data[1];
+            }
+            else {
+              alert("No stock details found for "+element);
             }
           });
         }
@@ -56,29 +67,23 @@ let filterText = data => {
             stackRow = data[2];
           }
           else{
-            console.log("not found");
+            alert("No stock details found for "+sample);
           }
         }
         
         if(count>0){
-          let existingTable = document.getElementById('empTable');
-          if(existingTable) {
-            existingTable.remove();
-          }
           createTable();
           if(count>1){
             arrayOfIndices.forEach(element => {
               createRow(data[element]);
             });
-            // for (let index = 0; index < count; index++) {
-            //   createRow(data[index]);        
-            // }
           }
           if(count==1) {
+            console.log("only one");
             createRow(stackRow);
           }
         }
-  }
+    }
 }
 
 // ARRAY FOR HEADER.
@@ -105,6 +110,7 @@ function createTable() {
 }
 
 function createRow(stackRow) {
+  console.log("Inside create row"+stackRow);
     let empTab = document.getElementById('empTable');
     let rowCnt = empTab.rows.length;        // GET TABLE ROW COUNT.
     let tr = empTab.insertRow(rowCnt);      // TABLE ROW.
